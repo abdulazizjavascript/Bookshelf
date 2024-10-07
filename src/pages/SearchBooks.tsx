@@ -97,7 +97,7 @@ const SearchBooksPage = () => {
                       src={book.cover}
                       alt={book.title}
                       effect="blur"
-                      style={{ ojbectFit: "contain" }}
+                      style={{ objectFit: "contain" }}
                     />
                   </TableCell>
                   <TableCell>{book.isbn}</TableCell>

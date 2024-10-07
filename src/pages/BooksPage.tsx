@@ -196,7 +196,7 @@ const BooksPage = () => {
                       effect="blur"
                       src={book.cover}
                       alt={book.title}
-                      style={{ ojbectFit: "contain" }}
+                      style={{ objectFit: "contain" }}
                     />
                   </TableCell>
                   <TableCell>{book.isbn}</TableCell>
