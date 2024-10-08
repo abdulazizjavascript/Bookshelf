@@ -23,7 +23,7 @@ const useDeleteConfirmDialog = ( callback: () => Promise<void> ): UseDeleteConfi
   const handleDelete = async () => {
     try {
       setDeleteBtnLoading( true );
-      await callback(); // Execute the passed callback function
+      await callback();
     } finally {
       setDeleteBtnLoading( false );
     }

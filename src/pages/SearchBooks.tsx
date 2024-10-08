@@ -11,10 +11,12 @@ import {
   TextField,
   Typography,
   Box,
-  Skeleton,
 } from "@mui/material";
-import request from "../server/request";
+
 import Empty from "../components/Empty";
+import TableSkeleton from "../components/TableSkeleton";
+
+import request from "../server/request";
 import { Book } from "../types";
 
 const SearchBooksPage = () => {
@@ -84,25 +86,7 @@ const SearchBooksPage = () => {
           </TableHead>
           <TableBody>
             {loading ? (
-              Array.from({ length: 5 }).map((_, index) => (
-                <TableRow key={index}>
-                  <TableCell>
-                    <Skeleton variant="text" height={30} />
-                  </TableCell>
-                  <TableCell>
-                    <Skeleton variant="text" height={30} />
-                  </TableCell>
-                  <TableCell>
-                    <Skeleton variant="text" height={30} />
-                  </TableCell>
-                  <TableCell>
-                    <Skeleton variant="text" height={30} />
-                  </TableCell>
-                  <TableCell>
-                    <Skeleton variant="text" height={30} />
-                  </TableCell>
-                </TableRow>
-              ))
+              <TableSkeleton row={5} column={5} />
             ) : books.length !== 0 ? (
               books.map((book) => (
                 <TableRow key={book.isbn}>
