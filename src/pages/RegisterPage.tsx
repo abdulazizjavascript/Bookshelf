@@ -1,17 +1,19 @@
-import { useForm, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 import { LoadingButton } from "@mui/lab";
 import { TextField, Container, Box, Typography } from "@mui/material";
+import LockPersonIcon from "@mui/icons-material/LockPerson";
+import SendIcon from "@mui/icons-material/Send";
 
 import useAuth from "../hooks/useAuth";
 import { User } from "../types";
-import { useNavigate } from "react-router-dom";
 
 const RegisterPage: React.FC = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const { register: registerUser } = useAuth();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState<boolean>(false);
 
   const {
     register,
@@ -22,7 +24,7 @@ const RegisterPage: React.FC = () => {
   const onSubmit: SubmitHandler<User> = async (data) => {
     try {
       setLoading(true);
-      registerUser(data, navigate);
+      await registerUser(data, navigate);
     } finally {
       setLoading(false);
     }
@@ -38,10 +40,12 @@ const RegisterPage: React.FC = () => {
       }}
     >
       <Container maxWidth="sm">
-        <Typography variant="h4" component="h1" gutterBottom textAlign="center">
-          Register
-        </Typography>
-
+        <Box textAlign="center">
+          <Typography variant="h4" component="h1" gutterBottom>
+            Register
+          </Typography>
+          <LockPersonIcon sx={{ fontSize: 40, marginBottom: 3 }} />
+        </Box>
         <Box
           component="form"
           onSubmit={handleSubmit(onSubmit)}
@@ -68,12 +72,13 @@ const RegisterPage: React.FC = () => {
           />
 
           <LoadingButton
+            endIcon={<SendIcon />}
             loading={loading}
             type="submit"
             variant="contained"
             color="primary"
           >
-            Submit
+            Register
           </LoadingButton>
         </Box>
       </Container>

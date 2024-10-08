@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-
 import {
   Table,
   TableBody,
@@ -15,28 +14,45 @@ import {
   Skeleton,
 } from "@mui/material";
 import request from "../server/request";
-
 import Empty from "../components/Empty";
-
 import { Book } from "../types";
 
 const SearchBooksPage = () => {
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState<string>("");
 
-  const handleSearch = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const search = event.target.value;
-    try {
-      setLoading(true);
-      if (search) {
-        const res = await request.get(`books/${search}`);
-        setBooks(res.data.data);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [searchTerm]);
+
+  useEffect(() => {
+    const searchBooks = async () => {
+      if (debouncedSearchTerm) {
+        try {
+          setLoading(true);
+          const res = await request.get(`books/${debouncedSearchTerm}`);
+          setBooks(res.data.data);
+        } finally {
+          setLoading(false);
+        }
       } else {
         setBooks([]);
       }
-    } finally {
-      setLoading(false);
-    }
+    };
+
+    searchBooks();
+  }, [debouncedSearchTerm]);
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
   };
 
   return (

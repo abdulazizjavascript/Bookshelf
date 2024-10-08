@@ -5,9 +5,12 @@ import Box from "@mui/material/Box";
 import { createTheme } from "@mui/material/styles";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
+import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
+
 import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import type { Session, Router, Navigation } from "@toolpad/core";
+
 import useAuth from "../hooks/useAuth";
 
 const navigation: Navigation = [
@@ -24,7 +27,7 @@ const navigation: Navigation = [
   {
     segment: "search-books",
     title: "Search books",
-    icon: <AutoStoriesIcon />,
+    icon: <ContentPasteSearchIcon />,
   },
 ];
 
@@ -53,7 +56,7 @@ function Layout() {
     user: {
       name: user?.name,
       email: user?.email,
-      image: "https://avatars.githubusercontent.com/u/19550456",
+      image: "/ap.jpg",
     },
   });
 
@@ -64,7 +67,7 @@ function Layout() {
           user: {
             name: user?.name,
             email: user?.email,
-            image: "https://avatars.githubusercontent.com/u/19550456",
+            image: "/ap.jpg",
           },
         });
       },
@@ -99,7 +102,7 @@ function Layout() {
       router={router}
       theme={demoTheme}
       branding={{
-        logo: <img src="https://mui.com/static/logo.png" alt="MUI logo" />,
+        logo: <img src="/mui.png" alt="MUI logo" />,
         title: "BOOKSHELF",
       }}
     >

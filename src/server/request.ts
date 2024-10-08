@@ -1,5 +1,5 @@
 import axios from "axios";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import md5 from "md5";
 
 const request = axios.create({

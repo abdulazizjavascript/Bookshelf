@@ -15,14 +15,12 @@ import {
   Typography,
   Box,
   Dialog,
-  DialogTitle,
   DialogContent,
   DialogActions,
   Select,
   MenuItem,
   Skeleton,
   SelectChangeEvent,
-  DialogContentText,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -32,6 +30,7 @@ import Empty from "../components/Empty";
 
 import request from "../server/request";
 import { Book } from "../types";
+import useDeleteConfirmDialog from "../hooks/useDeleteConfirmDialog";
 
 const isbnRegex = /^(?:\d{10}|\d{13})$/;
 
@@ -47,6 +46,9 @@ const BooksPage = () => {
     reset,
   } = useForm<Isbn>();
 
+  const { DeleteConfirmDialog, openDeleteConfirmDialog } =
+    useDeleteConfirmDialog(deleteBook);
+
   const [books, setBooks] = useState<{ book: Book; status: number }[] | null>(
     null
   );
@@ -54,17 +56,14 @@ const BooksPage = () => {
   const [loading, setLoading] = useState(false);
   const [addBtnLoading, setAddBtnLoading] = useState(false);
 
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [deleteBtnLoading, setDeleteBtnLoading] = useState(false);
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
-  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [deletedId, setDeletetedId] = useState<number | null>(null);
 
   const getBooks = useCallback(async () => {
     try {
       setLoading(true);
       const res = await request.get("books");
-      console.log(res);
 
       setBooks(res.data.data);
     } finally {
@@ -81,19 +80,19 @@ const BooksPage = () => {
       setAddBtnLoading(true);
       await request.post("books", data);
       await getBooks();
-      closeAddModal();
+      closeAddDialog();
       reset({ isbn: "" });
     } finally {
       setAddBtnLoading(false);
     }
   };
 
-  const openAddModal = () => {
-    setIsAddModalOpen(true);
+  const openAddDialog = () => {
+    setIsAddDialogOpen(true);
   };
 
-  const closeAddModal = () => {
-    setIsAddModalOpen(false);
+  const closeAddDialog = () => {
+    setIsAddDialogOpen(false);
   };
 
   const changeStatus = async (e: SelectChangeEvent<string>, book: Book) => {
@@ -101,25 +100,15 @@ const BooksPage = () => {
     await getBooks();
   };
 
-  const openDeleteModal = (id?: number) => {
-    setIsDeleteModalOpen(true);
-    setSelectedId(id as number);
+  const openDeleteConfirmDialogBtn = (id?: number) => {
+    openDeleteConfirmDialog();
+    setDeletetedId(id as number);
   };
 
-  const closeDeleteModal = () => {
-    setIsDeleteModalOpen(false);
-  };
-
-  const deleteBook = async () => {
-    try {
-      setDeleteBtnLoading(true);
-      await request.delete(`books/${selectedId}`);
-      await getBooks();
-    } finally {
-      setDeleteBtnLoading(false);
-    }
-    setIsDeleteModalOpen(false);
-  };
+  async function deleteBook() {
+    await request.delete(`books/${deletedId}`);
+    await getBooks();
+  }
 
   const statuses = ["New", "Reading", "Finished"];
   const statusColors = ["red", "yellow", "green"];
@@ -137,7 +126,7 @@ const BooksPage = () => {
           variant="contained"
           color="primary"
           startIcon={<AddIcon />}
-          onClick={openAddModal}
+          onClick={openAddDialog}
         >
           Add Book
         </Button>
@@ -228,7 +217,7 @@ const BooksPage = () => {
                   </TableCell>
                   <TableCell>
                     <LoadingButton
-                      onClick={() => openDeleteModal(book.id)}
+                      onClick={() => openDeleteConfirmDialogBtn(book.id)}
                       variant="contained"
                       color="error"
                     >
@@ -252,8 +241,8 @@ const BooksPage = () => {
             width: "100%",
           },
         }}
-        open={isAddModalOpen}
-        onClose={closeAddModal}
+        open={isAddDialogOpen}
+        onClose={closeAddDialog}
       >
         <form onSubmit={handleSubmit(addBook)}>
           <DialogContent>
@@ -273,7 +262,7 @@ const BooksPage = () => {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={closeAddModal} color="secondary">
+            <Button onClick={closeAddDialog} color="secondary">
               Cancel
             </Button>
             <LoadingButton
@@ -286,27 +275,7 @@ const BooksPage = () => {
           </DialogActions>
         </form>
       </Dialog>
-      <Dialog open={isDeleteModalOpen} onClose={closeDeleteModal}>
-        <DialogTitle>Confirm Delete</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Are you sure you want to delete this item? This action cannot be
-            undone.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <LoadingButton onClick={closeDeleteModal} color="primary">
-            Cancel
-          </LoadingButton>
-          <LoadingButton
-            loading={deleteBtnLoading}
-            onClick={deleteBook}
-            color="error"
-          >
-            Delete
-          </LoadingButton>
-        </DialogActions>
-      </Dialog>
+      {DeleteConfirmDialog}
     </Paper>
   );
 };

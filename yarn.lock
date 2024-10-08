@@ -895,6 +895,11 @@
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.15.tgz#596a1747233694d50f6ad8a7869fcb6f56cf5841"
   integrity sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==
 
+"@types/md5@^2.3.5":
+  version "2.3.5"
+  resolved "https://registry.yarnpkg.com/@types/md5/-/md5-2.3.5.tgz#481cef0a896e3a5dcbfc5a8a8b02c05958af48a5"
+  integrity sha512-/i42wjYNgE6wf0j2bcTX6kuowmdL/6PE4IVitMpm2eYKBUuYCprdcWVK+xEF0gcV6ufMCRhtxmReGfc6hIK7Jw==
+
 "@types/parse-json@^4.0.0":
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.2.tgz#5950e50960793055845e956c427fc2b0d70c5239"
@@ -1300,7 +1305,7 @@ clipboardy@1.2.2:
     arch "^2.1.0"
     execa "^0.8.0"
 
-clsx@^2.1.0, clsx@^2.1.1:
+clsx@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-2.1.1.tgz#eed397c9fd8bd882bfb18deab7102049a2f32999"
   integrity sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==
@@ -1743,6 +1748,11 @@ globals@^15.9.0:
   version "15.10.0"
   resolved "https://registry.yarnpkg.com/globals/-/globals-15.10.0.tgz#a7eab3886802da248ad8b6a9ccca6573ff899c9b"
   integrity sha512-tqFIbz83w4Y5TCbtgjZjApohbuh7K9BxGYFm7ifwDR240tvdb7P9x+/9VvUKlmkPoiknoJtanI8UOrqxS3a7lQ==
+
+goober@^2.1.10:
+  version "2.1.15"
+  resolved "https://registry.yarnpkg.com/goober/-/goober-2.1.15.tgz#23f330f36f41c5695fed00ae1651189fa055d16e"
+  integrity sha512-LP0xChUqgLlr5ORa1m4LobVy++/dhP4Kta2gVla9i2pc30XvtpEFrye4JtcD265g1tEFLOjYIQEiTa+9bGGQ/g==
 
 graphemer@^1.4.0:
   version "1.4.0"
@@ -2213,6 +2223,13 @@ react-hook-form@^7.53.0:
   resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.53.0.tgz#3cf70951bf41fa95207b34486203ebefbd3a05ab"
   integrity sha512-M1n3HhqCww6S2hxLxciEXy2oISPnAzxY7gvwVPrtlczTM/1dDadXgUxDpHMrMTblDOcm/AXtXxHwZ3jpg1mqKQ==
 
+react-hot-toast@^2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/react-hot-toast/-/react-hot-toast-2.4.1.tgz#df04295eda8a7b12c4f968e54a61c8d36f4c0994"
+  integrity sha512-j8z+cQbWIM5LY37pR6uZR6D4LfseplqnuAO4co4u8917hBUvXlEqyP1ZzqVLcqoyUesZZv/ImreoCeHVDpE5pQ==
+  dependencies:
+    goober "^2.1.10"
+
 react-is@18.3.1, react-is@^18.3.1:
   version "18.3.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.3.1.tgz#e83557dc12eae63a99e003a46388b1dcbb44db7e"
@@ -2250,13 +2267,6 @@ react-router@6.26.2:
   integrity sha512-tvN1iuT03kHgOFnLPfLJ8V95eijteveqdOSk+srqfePtQvqCExB8eHOYnlilbOcyJyKnYkr1vJvf7YqotAJu1A==
   dependencies:
     "@remix-run/router" "1.19.2"
-
-react-toastify@^10.0.5:
-  version "10.0.5"
-  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-10.0.5.tgz#6b8f8386060c5c856239f3036d1e76874ce3bd1e"
-  integrity sha512-mNKt2jBXJg4O7pSdbNUfDdTsK9FIdikfsIE/yUCxbAEXl4HMyJaivrVFcn3Elvt5xvCQYhUZm+hqTIu1UXM3Pw==
-  dependencies:
-    clsx "^2.1.0"
 
 react-transition-group@^4.4.5:
   version "4.4.5"

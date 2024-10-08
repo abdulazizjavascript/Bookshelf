@@ -1,6 +1,6 @@
 import React, { useState, createContext, ReactNode } from "react";
 import { NavigateFunction } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 import { User } from "../types";
 import request from "../server/request";
