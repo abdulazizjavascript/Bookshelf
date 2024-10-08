@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { LoadingButton } from '@mui/lab';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 
-interface UseDeleteConfirmDialogReturn {
+interface UseDeleteConfirmDialog {
   DeleteConfirmDialog: JSX.Element;
   closeDeleteConfirmDialog: () => void;
   openDeleteConfirmDialog: () => void;
 }
 
-const useDeleteConfirmDialog = ( callback: () => Promise<void> ): UseDeleteConfirmDialogReturn => {
+const useDeleteConfirmDialog = ( callback: () => Promise<void> ): UseDeleteConfirmDialog => {
   const [ isDeleteConfirmDialogOpen, setIsDeleteConfirmDialogOpen ] = useState( false );
   const [ deleteBtnLoading, setDeleteBtnLoading ] = useState( false );
 
